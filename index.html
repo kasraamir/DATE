@@ -29,29 +29,32 @@ h1 { color: #d63384; font-size: 24px; margin-bottom: 30px; }
 .btn-no { background: #f8d7da; color: #721c24; transition: all 0.3s ease; }
 
 /* =========================================
-   تغییرات جدید برای قلب‌های شناور (پررنگ و بلندتر)
+   قلب‌های شناور (پررنگ و سریع)
    ========================================= */
 .heart {
     position: absolute;
-    color: #ff1493; /* صورتی پررنگ (DeepPink) */
-    opacity: 1;     /* کاملاً پررنگ */
+    color: #ff1493; /* صورتی پررنگ */
+    opacity: 1;     
     animation: floatUp linear infinite;
     z-index: 1;
     cursor: pointer;
     user-select: none;
-    text-shadow: 0 0 10px rgba(255, 20, 147, 0.6); /* هاله نور صورتی */
+    text-shadow: 0 0 15px rgba(255, 20, 147, 0.8);
 }
 
 @keyframes floatUp {
     0% {
-        transform: translateY(100vh) scale(0.5);
+        transform: translateY(100vh) scale(0.8);
         opacity: 0;
     }
-    10%, 90% {
-        opacity: 1; /* در طول مسیر کاملاً واضح و پررنگ می‌ماند */
+    5% {
+        opacity: 1; /* سریع پررنگ می‌شه */
+    }
+    95% {
+        opacity: 1; /* تا آخر پررنگ می‌مونه */
     }
     100% {
-        transform: translateY(-15vh) scale(1.3); /* تا بالاتر از بالای صفحه می‌رود */
+        transform: translateY(-20vh) scale(1.5);
         opacity: 0;
     }
 }
@@ -191,7 +194,6 @@ h1 { color: #d63384; font-size: 24px; margin-bottom: 30px; }
     <div class="result-card">
         <div style="font-size:50px">💗</div>
         
-        <!-- متن بزرگ بالای صفحه -->
         <h2 style="font-size: 18px; color: #d63384; margin-bottom: 15px; line-height: 1.5; background: #fff0f6; padding: 12px; border-radius: 10px;">
             خواهشاً از این صفحه اسکرین‌شات بگیر و بفرست 📸
         </h2>
@@ -204,7 +206,6 @@ h1 { color: #d63384; font-size: 24px; margin-bottom: 30px; }
             برای اینکه بگم قبول کردم، روی دکمه زیر بزن:
         </div>
 
-        <!-- دکمه لینک به تلگرام -->
         <a href="https://t.me/JudgeKY" target="_blank" style="text-decoration: none;">
             <button style="background: #0088cc; color: white; border: none; border-radius: 30px; padding: 15px 30px; font-family: Tahoma; font-size: 18px; font-weight: bold; cursor: pointer; box-shadow: 0 5px 15px rgba(0, 136, 204, 0.4); display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%;">
                 <span style="font-size: 22px;">✈️</span>
@@ -221,19 +222,19 @@ h1 { color: #d63384; font-size: 24px; margin-bottom: 30px; }
 <script>
 // قلب‌های متحرک
 const body = document.body;
-for(let i=0; i<30; i++) {
+for(let i=0; i<40; i++) { // تعداد قلب‌ها رو بیشتر کردم که صفحه پرتر باشه
     const heart = document.createElement('div');
     heart.className = 'heart';
     heart.innerHTML = '❤';
     
-    // سایز تصادفی برای قلب ها
     heart.style.fontSize = (Math.random()*30+15)+'px';
-    // موقعیت افقی تصادفی
     heart.style.left = Math.random()*100+'vw';
-    // زمان حرکت تصادفی (بین 4 تا 8 ثانیه)
-    heart.style.animationDuration = (Math.random()*4+4)+'s';
-    // تاخیر شروع تصادفی
-    heart.style.animationDelay = Math.random()*5+'s';
+    
+    // زمان حرکت سریع‌تر (بین 3 تا 5 ثانیه)
+    heart.style.animationDuration = (Math.random()*2+3)+'s';
+    
+    // حذف تاخیر اولیه (همه از همون اول میان)
+    heart.style.animationDelay = Math.random()*2+'s';
     
     body.appendChild(heart);
     heart.addEventListener('click', () => { popHeart(heart); });
