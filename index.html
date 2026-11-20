@@ -13,6 +13,20 @@ body {
     height: 100vh; height: 100dvh; overflow: hidden; position: relative;
 }
 
+/* متن بالای صفحه */
+.top-instruction {
+    position: absolute;
+    top: 3%;
+    width: 100%;
+    text-align: center;
+    color: #d63384;
+    font-size: 18px;
+    font-weight: bold;
+    z-index: 20;
+    pointer-events: none; /* که مانع کلیک روی قلب‌ها نشه */
+    animation: pulse 2s ease-in-out infinite;
+}
+
 /* صفحه اول */
 #page1 { height: 100%; display: flex; justify-content: center; align-items: center; }
 .container {
@@ -29,7 +43,7 @@ h1 { color: #d63384; font-size: 24px; margin-bottom: 30px; }
 .btn-no { background: #f8d7da; color: #721c24; transition: all 0.3s ease; }
 
 /* =========================================
-   قلب‌های شناور (پررنگ و تا بالای بالا)
+   قلب‌های شناور (سرعت کم شده)
    ========================================= */
 .heart {
     position: absolute;
@@ -44,32 +58,31 @@ h1 { color: #d63384; font-size: 24px; margin-bottom: 30px; }
 
 @keyframes floatUp {
     0% {
-        /* شروع از پایین‌ترین نقطه (بیرون از کادر) */
         transform: translateY(110vh) scale(0.8);
         opacity: 0;
     }
     10% {
-        opacity: 1; /* سریع پررنگ می‌شه */
+        opacity: 1;
     }
     90% {
-        opacity: 1; /* تا بالاترین نقطه پررنگ می‌مونه */
+        opacity: 1;
     }
     100% {
-        /* رفتن به بالای صفحه و کمی بیرون از کادر (منفی) */
         transform: translateY(-15vh) scale(1.4);
-        opacity: 0; /* فقط در لحظه آخر محو میشه */
+        opacity: 0;
     }
 }
 /* ========================================= */
 
 .top-heart {
-    position: absolute; top: 9%; color: #ff1493; font-size: 52px;
+    position: absolute; top: 12%; color: #ff1493; font-size: 52px;
     z-index: 2; pointer-events: none; animation: pulse 1.5s ease-in-out infinite;
     text-shadow: 0 0 15px rgba(255, 20, 147, 0.5);
 }
-.top-heart.one { left: 25%; }
-.top-heart.two { right: 25%; animation-delay: 0.5s; }
-@keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.2); } }
+.top-heart.one { left: 15%; }
+.top-heart.two { right: 15%; animation-delay: 0.5s; }
+
+@keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.1); } }
 
 .heart.burst { animation: burst 0.35s forwards !important; pointer-events: none; }
 @keyframes burst { 0% { transform: scale(1); opacity: 1; } 50% { transform: scale(2); opacity: 1; } 100% { transform: scale(0); opacity: 0; } }
@@ -153,6 +166,9 @@ h1 { color: #d63384; font-size: 24px; margin-bottom: 30px; }
 
 <body>
 
+<!-- متن راهنما -->
+<div class="top-instruction">قلب‌هایی که از پایین میاد بالا رو بترکون 💥</div>
+
 <!-- صفحه اول -->
 <section id="page1">
     <div class="container">
@@ -224,7 +240,7 @@ h1 { color: #d63384; font-size: 24px; margin-bottom: 30px; }
 <script>
 // قلب‌های متحرک
 const body = document.body;
-for(let i=0; i<40; i++) { 
+for(let i=0; i<35; i++) { 
     const heart = document.createElement('div');
     heart.className = 'heart';
     heart.innerHTML = '❤';
@@ -232,11 +248,10 @@ for(let i=0; i<40; i++) {
     heart.style.fontSize = (Math.random()*30+15)+'px';
     heart.style.left = Math.random()*100+'vw';
     
-    // سرعت بالا (بین 3 تا 5 ثانیه)
-    heart.style.animationDuration = (Math.random()*2+3)+'s';
+    // *** سرعت کم شده: زمان حرکت بین 6 تا 10 ثانیه شد ***
+    heart.style.animationDuration = (Math.random()*4+6)+'s';
     
-    // تاخیر خیلی کم برای اینکه از همون اول پر باشه
-    heart.style.animationDelay = Math.random()*1.5+'s';
+    heart.style.animationDelay = Math.random()*2+'s';
     
     body.appendChild(heart);
     heart.addEventListener('click', () => { popHeart(heart); });
@@ -282,6 +297,7 @@ btnYes.addEventListener('click',function() {
     bottomBar.style.display = 'block';
     document.querySelectorAll('.heart').forEach(h => { h.style.display = 'none'; });
     document.querySelectorAll('.top-heart').forEach(h => { h.style.display = 'none'; });
+    document.querySelector('.top-instruction').style.display = 'none'; // مخفی کردن متن راهنما در صفحه دوم
 });
 
 // برگشت به صفحه اول
@@ -303,6 +319,7 @@ document.getElementById('backBtn').addEventListener('click',function() {
         if(!h.classList.contains('burst')) { h.style.display = 'block'; }
     });
     document.querySelectorAll('.top-heart').forEach(h => { h.style.display = 'block'; });
+    document.querySelector('.top-instruction').style.display = 'block';
 });
 
 // انتخاب گزینه‌ها
