@@ -1,151 +1,537 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>عشقم، بریم بیرون؟</title>
-    <style>
-        /* تنظیمات کلی صفحه */
-        body {
-            margin: 0;
-            padding: 0;
-            background-color: #ffffff;
-            font-family: 'Tahoma', sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            overflow: hidden; /* جلوگیری از اسکرول شدن */
-            position: relative;
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>عشقم، بریم بیرون؟</title>
 
-        /* باکس وسط صفحه (متن و دکمه‌ها) */
-        .container {
-            text-align: center;
-            background: rgba(255, 255, 255, 0.9);
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(255, 192, 203, 0.4);
-            z-index: 10; /* بالای قلب‌ها قرار بگیره */
-            position: relative;
-        }
+<style>
+* {
+    box-sizing: border-box;
+}
 
-        h1 {
-            color: #d63384;
-            font-size: 24px;
-            margin-bottom: 30px;
-        }
+body {
+    margin: 0;
+    padding: 0;
+    background: white;
+    font-family: Tahoma, sans-serif;
+    height: 100vh;
+    height: 100dvh;
+    overflow: hidden;
+    position: relative;
+}
 
-        /* استایل دکمه‌ها */
-        .btn {
-            padding: 12px 30px;
-            font-size: 18px;
-            font-family: 'Tahoma', sans-serif;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin: 0 10px;
-        }
+/* صفحه اول */
+#page1 {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
-        /* دکمه بریم (سبز) */
-        .btn-yes {
-            background-color: #28a745;
-            color: white;
-            box-shadow: 0 5px 15px rgba(40, 167, 69, 0.3);
-        }
+.container {
+    text-align: center;
+    background: rgba(255,255,255,0.95);
+    padding: 40px 20px;
+    border-radius: 25px;
+    box-shadow: 0 10px 30px rgba(255,192,203,0.4);
+    z-index: 10;
+    position: relative;
+    width: 96%;
+    max-width: 700px;
+}
 
-        .btn-yes:hover {
-            transform: scale(1.05);
-            background-color: #218838;
-        }
+h1 {
+    color: #d63384;
+    font-size: 24px;
+    margin-bottom: 30px;
+}
 
-        /* دکمه نه نمیام (خاکستری/قرمز) */
-        .btn-no {
-            background-color: #f8d7da;
-            color: #721c24;
-            box-shadow: 0 5px 15px rgba(248, 215, 218, 0.4);
-        }
+.btn {
+    padding: 12px 30px;
+    font-size: 18px;
+    font-family: Tahoma, sans-serif;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin: 5px;
+}
 
-        /* انیمیشن قلب‌های پس‌زمینه */
-        .heart {
-            position: absolute;
-            color: #ff69b4;
-            font-size: 24px;
-            opacity: 0.6;
-            animation: floatUp linear infinite;
-            z-index: 1; /* زیر باکس اصلی */
-        }
+.btn-yes {
+    background: #28a745;
+    color: white;
+    box-shadow: 0 5px 15px rgba(40,167,69,0.3);
+}
 
-        @keyframes floatUp {
-            0% { transform: translateY(100vh) scale(0.5); opacity: 0; }
-            20% { opacity: 0.8; }
-            80% { opacity: 0.8; }
-            100% { transform: translateY(-100px) scale(1.2); opacity: 0; }
-        }
-    </style>
+.btn-no {
+    background: #f8d7da;
+    color: #721c24;
+    transition: all 0.3s ease;
+}
+
+/* قلب‌های شناور */
+.heart {
+    position: absolute;
+    color: #ff69b4;
+    opacity: 0.6;
+    animation: floatUp linear infinite;
+    z-index: 1;
+    cursor: pointer;
+    user-select: none;
+}
+
+@keyframes floatUp {
+    0% {
+        transform: translateY(100vh) scale(0.5);
+        opacity: 0;
+    }
+    20%,80% {
+        opacity: 0.8;
+    }
+    100% {
+        transform: translateY(-100px) scale(1.2);
+        opacity: 0;
+    }
+}
+
+/* دو قلب بالایی */
+.top-heart {
+    position: absolute;
+    top: 9%;
+    color: #ff69b4;
+    font-size: 52px;
+    z-index: 2;
+    pointer-events: none;
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+.top-heart.one { left: 25%; }
+.top-heart.two {
+    right: 25%;
+    animation-delay: 0.5s;
+}
+
+@keyframes pulse {
+    0%,100% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+}
+
+.heart.burst {
+    animation: burst 0.35s forwards !important;
+    pointer-events: none;
+}
+
+@keyframes burst {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(2); opacity: 1; }
+    100% { transform: scale(0); opacity: 0; }
+}
+
+.love-text {
+    position: fixed;
+    z-index: 30;
+    pointer-events: none;
+    color: #e83e8c;
+    font-size: 21px;
+    font-weight: bold;
+    white-space: nowrap;
+    animation: loveShow 1.1s ease forwards;
+}
+
+@keyframes loveShow {
+    0% {
+        opacity: 0;
+        transform: translate(-50%,10px) scale(0.5);
+    }
+    25% {
+        opacity: 1;
+        transform: translate(-50%,-10px) scale(1.1);
+    }
+    65% { opacity: 1; }
+    100% {
+        opacity: 0;
+        transform: translate(-50%,-40px) scale(0.8);
+    }
+}
+
+/* صفحه دوم */
+#page2 {
+    display: none;
+    height: 100%;
+    overflow-y: auto;
+    padding: 25px 18px 120px;
+    background: linear-gradient(180deg,#fff5fa,#ffffff);
+    animation: pageEnter 0.6s ease;
+}
+
+@keyframes pageEnter {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.back-btn {
+    border: none;
+    background: #ffe1ed;
+    color: #d63384;
+    padding: 11px 18px;
+    border-radius: 30px;
+    font-family: Tahoma;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.page-title {
+    text-align: center;
+    margin: 35px 0 10px;
+    color: #d63384;
+    font-size: 27px;
+}
+
+.subtitle {
+    text-align: center;
+    color: #999;
+    font-size: 14px;
+    margin-bottom: 30px;
+}
+
+/* گزینه‌های انتخاب */
+.options {
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    gap: 15px;
+    max-width: 550px;
+    margin: auto;
+}
+
+.option {
+    background: white;
+    border: 2px solid #ffe0ed;
+    border-radius: 20px;
+    padding: 20px 8px;
+    text-align: center;
+    font-family: Tahoma;
+    font-size: 17px;
+    color: #555;
+    cursor: pointer;
+    transition: 0.25s;
+    box-shadow: 0 5px 15px rgba(255,182,193,0.12);
+}
+
+.option .emoji {
+    display: block;
+    font-size: 32px;
+    margin-bottom: 12px;
+}
+
+.option.selected {
+    border-color: #e83e8c;
+    background: #fff0f6;
+    color: #d63384;
+    transform: scale(1.04);
+    box-shadow: 0 5px 20px rgba(232,62,140,0.18);
+}
+
+/* نوار پایین */
+.bottom-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: white;
+    padding: 15px;
+    box-shadow: 0 -5px 20px rgba(0,0,0,0.07);
+    z-index: 50;
+}
+
+.input-row {
+    display: flex;
+    gap: 8px;
+    max-width: 550px;
+    margin: auto;
+}
+
+#customPlace {
+    flex: 1;
+    min-width: 0;
+    border: 2px solid #ffd4e5;
+    border-radius: 15px;
+    padding: 14px 12px;
+    font-family: Tahoma;
+    font-size: 14px;
+    outline: none;
+}
+
+#customPlace:focus {
+    border-color: #e83e8c;
+}
+
+.submit-btn {
+    border: none;
+    background: #28a745;
+    color: white;
+    border-radius: 15px;
+    padding: 0 22px;
+    font-family: Tahoma;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+/* باکس نتیجه نهایی (قفل شده) */
+#result {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(255,240,247,0.98);
+    z-index: 100;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.result-card {
+    background: white;
+    border-radius: 25px;
+    padding: 35px 20px;
+    text-align: center;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 10px 35px rgba(232,62,140,0.2);
+    animation: popUp 0.4s ease;
+}
+
+@keyframes popUp {
+    0% { transform: scale(0.8); }
+    100% { transform: scale(1); }
+}
+
+.result-card h2 {
+    color: #d63384;
+}
+
+.result-card p {
+    color: #555;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+@media(max-width:380px) {
+    .option {
+        font-size: 15px;
+        padding: 16px 5px;
+    }
+}
+</style>
 </head>
+
 <body>
 
-    <!-- باکس اصلی محتوا -->
+<!-- صفحه اول -->
+<section id="page1">
     <div class="container">
-        <h1 id="question">عشقم، آخر هفته بریم بیرون؟ 🥺</h1>
+        <h1>عشقم، آخر هفته بریم بیرون؟ 🥺</h1>
+        <button class="btn btn-yes" id="btn-yes">بریم ❤️</button>
+        <button class="btn btn-no" id="btn-no">نه نمیام</button>
+    </div>
+</section>
+
+<div class="top-heart one">❤</div>
+<div class="top-heart two">❤</div>
+
+<!-- صفحه دوم -->
+<section id="page2">
+    <button class="back-btn" id="backBtn">← برگشت به صفحه قبل</button>
+    <h1 class="page-title">خب، کجا بریم؟ ❤️</h1>
+    <p class="subtitle">یه جای قشنگ انتخاب کن که بهمون خوش بگذره</p>
+
+    <div class="options">
+        <button class="option" data-place="کافه"><span class="emoji">☕</span>کافه</button>
+        <button class="option" data-place="رستوران"><span class="emoji">🍝</span>رستوران</button>
+        <button class="option" data-place="پارک"><span class="emoji">🌳</span>پارک</button>
+        <button class="option" data-place="پیاده‌روی"><span class="emoji">🚶</span>پیاده‌روی</button>
+        <button class="option" data-place="شهربازی"><span class="emoji">🎡</span>شهربازی</button>
+        <button class="option" data-place="سینما"><span class="emoji">🎬</span>سینما</button>
+        <button class="option" data-place="بولینگ"><span class="emoji">🎳</span>بولینگ</button>
+        <button class="option" data-place="خرید و گشت"><span class="emoji">🛍️</span>خرید و گشت</button>
+    </div>
+</section>
+
+<!-- نوار ثبت پیشنهاد -->
+<div class="bottom-bar" id="bottomBar" style="display:none">
+    <div class="input-row">
+        <input type="text" id="customPlace" placeholder="یا خودت بنویس کجا بریم...">
+        <button class="submit-btn" id="submitBtn">ثبت ❤️</button>
+    </div>
+</div>
+
+<!-- نتیجه نهایی (قفل شده) -->
+<div id="result">
+    <div class="result-card">
+        <div style="font-size:50px">💗</div>
         
-        <div id="buttons">
-            <button class="btn btn-yes" id="btn-yes">بریم ❤️</button>
-            <button class="btn btn-no" id="btn-no">نه نمیام</button>
+        <!-- متن بالای صفحه -->
+        <h2 style="font-size: 20px; color: #d63384; margin-bottom: 20px; line-height: 1.5;">
+            پس قرارمون این شد! 🥰
+        </h2>
+
+        <p id="chosenPlace" style="font-size: 28px; color: #e83e8c; margin: 15px 0; font-weight: bold;"></p>
+        
+        <div style="color:#666; margin: 25px 0 15px 0; font-size: 16px;">
+            برای اینکه بگم قبول کردم، روی دکمه زیر بزن:
+        </div>
+
+        <!-- دکمه لینک به تلگرام -->
+        <a href="https://t.me/JudgeKY" target="_blank" style="text-decoration: none;">
+            <button style="background: #0088cc; color: white; border: none; border-radius: 30px; padding: 15px 30px; font-family: Tahoma; font-size: 18px; font-weight: bold; cursor: pointer; box-shadow: 0 5px 15px rgba(0, 136, 204, 0.4); display: flex; align-items: center; justify-content: center; gap: 10px; width: 100%;">
+                <span style="font-size: 22px;">✈️</span>
+                پیام دادن در تلگرام
+            </button>
+        </a>
+
+        <div style="color:#999; margin-top: 20px; font-size: 12px;">
+            (این صفحه برای یادگاری باز می‌مونه)
         </div>
     </div>
+</div>
 
-    <!-- اسکریپت حرکت قلب‌ها و تغییر دکمه -->
-    <script>
-        // ۱. ساخت قلب‌های متحرک
-        const body = document.body;
-        const heartCount = 30; // تعداد قلب‌ها
+<script>
+// قلب‌های متحرک
+const body = document.body;
 
-        for (let i = 0; i < heartCount; i++) {
-            let heart = document.createElement('div');
-            heart.classList.add('heart');
-            heart.innerHTML = '❤'; // میتوانی به جای آن از سایزهای مختلف استفاده کنی
-            
-            // تنظیم سایز تصادفی
-            let size = Math.random() * 30 + 10; // بین 10 تا 40 پیکسل
-            heart.style.fontSize = size + 'px';
-            
-            // تنظیم موقعیت افقی تصادفی
-            heart.style.left = Math.random() * 100 + 'vw';
-            
-            // تنظیم زمان انیمیشن تصادفی برای جلوگیری از حرکت یک‌دست
-            let duration = Math.random() * 5 + 5; // بین 5 تا 10 ثانیه
-            heart.style.animationDuration = duration + 's';
-            
-            // تاخیر تصادفی برای اینکه همه با هم شروع نشن
-            heart.style.animationDelay = Math.random() * 5 + 's';
-            
-            body.appendChild(heart);
+for(let i=0; i<30; i++) {
+    const heart = document.createElement('div');
+    heart.className = 'heart';
+    heart.innerHTML = '❤';
+    heart.style.fontSize = (Math.random()*30+10)+'px';
+    heart.style.left = Math.random()*100+'vw';
+    heart.style.animationDuration = (Math.random()*5+5)+'s';
+    heart.style.animationDelay = Math.random()*5+'s';
+    body.appendChild(heart);
+    heart.addEventListener('click', () => {
+        popHeart(heart);
+    });
+}
+
+// ترکیدن قلب
+function popHeart(heart) {
+    if(heart.classList.contains('burst')) return;
+    const rect = heart.getBoundingClientRect();
+    const message = document.createElement('div');
+    message.className = 'love-text';
+    message.textContent = 'دوست دارم ❤️';
+    message.style.left = (rect.left+rect.width/2)+'px';
+    message.style.top = (rect.top+rect.height/2)+'px';
+    body.appendChild(message);
+    setTimeout(() => message.remove(),1200);
+    heart.classList.add('burst');
+    setTimeout(() => heart.remove(),400);
+}
+
+// دکمه‌ها
+const btnNo = document.getElementById('btn-no');
+const btnYes = document.getElementById('btn-yes');
+
+btnNo.addEventListener('click',function() {
+    btnNo.innerHTML = 'باید بیای! ➡️';
+    btnNo.style.backgroundColor = '#d1ecf1';
+    btnNo.style.color = '#0c5460';
+    btnNo.style.transform = 'rotate(10deg) scale(1.1)';
+    btnYes.style.transform = 'scale(1.2)';
+    btnYes.style.boxShadow = '0 0 30px rgba(40,167,69,0.8)';
+    btnNo.disabled = true;
+});
+
+// رفتن به صفحه دوم
+const page1 = document.getElementById('page1');
+const page2 = document.getElementById('page2');
+const bottomBar = document.getElementById('bottomBar');
+
+btnYes.addEventListener('click',function() {
+    page1.style.display = 'none';
+    page2.style.display = 'block';
+    bottomBar.style.display = 'block';
+    document.querySelectorAll('.heart').forEach(h => {
+        h.style.display = 'none';
+    });
+    document.querySelectorAll('.top-heart').forEach(h => {
+        h.style.display = 'none';
+    });
+});
+
+// برگشت به صفحه اول (و ریست کردن دکمه "نه نمیام")
+document.getElementById('backBtn').addEventListener('click',function() {
+    page2.style.display = 'none';
+    bottomBar.style.display = 'none';
+    page1.style.display = 'flex';
+    
+    // ریست کردن دکمه No
+    btnNo.innerHTML = 'نه نمیام';
+    btnNo.style.backgroundColor = '#f8d7da';
+    btnNo.style.color = '#721c24';
+    btnNo.style.transform = 'none';
+    btnNo.disabled = false;
+    
+    // ریست کردن دکمه Yes
+    btnYes.style.transform = 'none';
+    btnYes.style.boxShadow = '0 5px 15px rgba(40,167,69,0.3)';
+
+    document.querySelectorAll('.heart').forEach(h => {
+        if(!h.classList.contains('burst')) {
+            h.style.display = 'block';
         }
+    });
+    document.querySelectorAll('.top-heart').forEach(h => {
+        h.style.display = 'block';
+    });
+});
 
-        // ۲. کد تغییر دکمه "نه"
-        const btnNo = document.getElementById('btn-no');
-        const btnYes = document.getElementById('btn-yes');
+// انتخاب گزینه‌ها
+const options = document.querySelectorAll('.option');
+let selectedPlace = '';
 
-        btnNo.addEventListener('click', function() {
-            // تغییر متن دکمه
-            btnNo.innerHTML = 'باید بیای! ➡️';
-            btnNo.style.backgroundColor = '#d1ecf1';
-            btnNo.style.color = '#0c5460';
-            
-            // چرخش و حرکت دادن به سمت دکمه "بریم"
-            btnNo.style.transform = 'rotate(10deg) scale(1.1)';
-            
-            // (اختیاری) بزرگتر کردن دکمه بریم
-            btnYes.style.transform = 'scale(1.2)';
-            btnYes.style.boxShadow = '0 0 30px rgba(40, 167, 69, 0.8)';
-            
-            // غیرفعال کردن دکمه "نه" که دیگه کلیک نشه
-            btnNo.disabled = true;
-            btnNo.style.cursor = 'not-allowed';
+options.forEach(option => {
+    option.addEventListener('click',function() {
+        options.forEach(o => {
+            o.classList.remove('selected');
         });
-    </script>
+        this.classList.add('selected');
+        selectedPlace = this.dataset.place;
+        document.getElementById('customPlace').value = '';
+    });
+});
+
+// ثبت انتخاب و قفل کردن صفحه
+document.getElementById('submitBtn').addEventListener('click',function() {
+    const custom = document.getElementById('customPlace').value.trim();
+    const finalPlace = custom || selectedPlace;
+    
+    if(!finalPlace) {
+        alert('اول یه جا انتخاب کن یا پیشنهاد خودتو بنویس ❤️');
+        return;
+    }
+    
+    document.getElementById('chosenPlace').textContent = finalPlace;
+    document.getElementById('result').style.display = 'flex';
+    
+    // جلوگیری از بسته شدن صفحه با دکمه برگشت مرورگر
+    history.pushState(null, null, location.href);
+    window.onpopstate = function () {
+        history.go(1); 
+    };
+});
+</script>
+
 </body>
 </html>
